@@ -6,6 +6,10 @@ const result = document.getElementById('result');
 
 var goal = "not started...";
 
+async function sleep(time) {
+  return (new Promise(resolve => setTimeout(resolve, time)));
+}
+
 async function randomstory() {
   try {
     const tmp = await fetch('/random-text');
@@ -38,6 +42,7 @@ inputText.addEventListener('input', async () => {
   story.innerHTML = colorchg(goal, input.value);
   if (input.value === goal) {
       result.innerText = 'Finished!';
+      await sleep(3000);
       await update();
   } else {
       result.innerText = '';
