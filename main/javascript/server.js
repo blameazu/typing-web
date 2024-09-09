@@ -5,7 +5,7 @@ var path = require('path');
 var app = express();
 const port = 3000;
 
-console.log(config);
+// console.log(config);
 
 app.use(express.static(path.join(__dirname, '..'))); 
 
@@ -29,7 +29,6 @@ app.get('/random-text', (req, res) => {
   con.query("SELECT content FROM texts ORDER BY RAND() LIMIT 1", function(err, result) {
     if (err) throw err;
     res.json({ text: result[0].content });
-    // console.log(result[0].content);
   });
 });
 

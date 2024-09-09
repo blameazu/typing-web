@@ -1,24 +1,45 @@
-var target = '';
+import { colorchg } from './textcolor.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('/random-text')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('textToType').innerText = data.text;
-      target = data.text;
-    })
-    .catch(error => console.error('Error fetching text:', error));
-});
-
-const inputText = document.getElementById('inputText');
+const story = document.getElementById('textToType');
+const input = document.getElementById('inputText');
 const result = document.getElementById('result');
 
-console.log(target);
+var goal = "not started...";
 
-inputText.addEventListener('input', () => {
-    if (inputText.value === target) {
-        result.innerText = 'Finished!';
-    } else {
-        result.innerText = inputText.value;
-    }
+async function randomstory() {
+  try {
+    const tmp = await fetch('/random-text');
+    const re = await tmp.json();
+    return re.text;
+  } catch (error) {
+    console.error(`[Error] Failed to fetching text:`, error);
+    return "[Error] Fetch failed";
+  }
+}
+
+async function update() {
+  try {
+    // setup
+    input.value = "";
+    result.innerText = "";
+    // update story
+    goal = await randomstory();
+    story.innerText = goal;
+  } catch (error) {
+    console.error(`[Error] Failed to update`)
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await update();
+});
+
+inputText.addEventListener('input', async () => {
+  story.innerHTML = colorchg(goal, input.value);
+  if (input.value === goal) {
+      result.innerText = 'Finished!';
+      await update();
+  } else {
+      result.innerText = '';
+  }
 });
