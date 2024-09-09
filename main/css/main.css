@@ -4,23 +4,31 @@ body {
   text-align: center;
   margin-top: 50px;
   font-weight: 600;
+  color: white;
+  font-size: 32px;
 }
 
 .container {
   display: inline-block;
   text-align: left;
-  color : white;
 }
 
-.race-text {
-  width: 100%;
+.story-section {
+  max-width: 1000px;
   border: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 20px;
+  word-wrap: break-word;
+  line-height: 1.6;
 }
 
-.input-area {
+.input-section {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
+  padding: 20px;
+  font-size: 32px;
+  box-sizing: border-box;
+}
+
+.result-section {
+  text-align: center;
 }

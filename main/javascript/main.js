@@ -1,7 +1,7 @@
 import { colorchg } from './textcolor.js';
 
-const story = document.getElementById('textToType');
-const input = document.getElementById('inputText');
+const story = document.getElementById('story');
+const input = document.getElementById('input');
 const result = document.getElementById('result');
 
 var goal = "not started...";
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await update();
 });
 
-inputText.addEventListener('input', async () => {
+input.addEventListener('input', async () => {
   story.innerHTML = colorchg(goal, input.value);
   if (input.value === goal) {
       result.innerText = 'Finished!';
