@@ -22,6 +22,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'html', 'main.html'));
 });
 
+
+app.get('/login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'html', 'login.html'));
+});
+
 app.get('/random-text', (req, res) => {
   con.query("SELECT content FROM texts ORDER BY RAND() LIMIT 1", function(err, result) {
     if (err) throw err;

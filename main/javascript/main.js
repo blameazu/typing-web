@@ -1,4 +1,7 @@
+// story text system
+
 import { colorchg } from './textcolor.js';
+import { sleep } from './function.js';
 
 const story = document.getElementById('story');
 const input = document.getElementById('input');
@@ -10,10 +13,6 @@ var begintime = null;
 var started = false;
 var timer = null;
 var nowtime = null;
-
-async function sleep(time) {
-  return (new Promise(resolve => setTimeout(resolve, time)));
-}
 
 async function randomstory() {
   try {
@@ -69,3 +68,11 @@ input.addEventListener('input', async () => {
       result.innerText = '';
   }
 });
+
+// to login html
+
+const login = document.getElementById('login');
+
+login.addEventListener('click', () => {
+  window.location.href = 'login.html';
+})

@@ -8,6 +8,18 @@ body {
   font-size: 32px;
 }
 
+#login {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  width: 187px;
+  height: 40px;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  box-sizing: border-box;
+}
+
 .container {
   display: inline-block;
   text-align: center;
@@ -28,4 +40,5 @@ body {
   padding: 20px;
   font-size: 32px;
   box-sizing: border-box;
+  position: relative;
 }
