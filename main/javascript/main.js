@@ -49,6 +49,7 @@ input.addEventListener('input', async () => {
   if(!started) {
     begintime = Date.now();
     started = true;
+    nowtime = 0;
     timer = setInterval(() => {
       const totaltime = ((Date.now() - begintime) / 1000).toFixed(2);
       nowtime = totaltime;

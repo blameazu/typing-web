@@ -10,10 +10,11 @@ body {
 
 .container {
   display: inline-block;
-  text-align: left;
+  text-align: center;
 }
 
 .story-section {
+  text-align: left;
   max-width: 1000px;
   border: 1px solid #ccc;
   padding: 10px;
@@ -27,12 +28,4 @@ body {
   padding: 20px;
   font-size: 32px;
   box-sizing: border-box;
-}
-
-.result-section {
-  text-align: center;
-}
-
-.time-section {
-  text-align: center;
 }

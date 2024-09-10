@@ -1,0 +1,7 @@
+{
+    "user" : "enter in your username here",
+    "password" : "enter in your sql password here",
+    "port" : 8787,
+    "host" : "enter in your sql host",
+    "database" : "enter in your sql host"
+}

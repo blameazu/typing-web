@@ -1,6 +1,6 @@
 var express = require('express');
 var mysql = require('mysql');
-var config = require('../json/config.json');
+var config = require('../json/config.json'); // here need to be modified to your config.json file path
 var path = require('path');
 var app = express();
 
