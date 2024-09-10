@@ -3,5 +3,7 @@
     "password" : "enter in your sql password here",
     "port" : 8787,
     "host" : "enter in your sql host",
-    "database" : "enter in your sql host"
+    "database" : "enter in your sql host",
+    "adminusername" : "enter in your adminusername",
+    "adminpassword" : "enter in your adminpassword"
 }
