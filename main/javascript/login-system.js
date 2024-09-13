@@ -6,31 +6,28 @@ const login = document.getElementById('login');
 const regist = document.getElementById('regist');
 const result = document.getElementById('result');
 
-var config;
-
-fetch('../json/config.json')
-  .then(res => res.json())
-  .then(ans => {
-    config = ans;
-  })
-  .catch(error => {
-    console.error('Error loading config:', error);
+login.addEventListener('click', async () => {
+  const res = await fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: user.value,
+      password: password.value,
+    }),
   });
 
-login.addEventListener('click', async () => {
-  if(user.value === "") result.innerHTML = `<span style = "color : red;">Username cannot be empty!</span>`;
-  else if(password.value === "") result.innerHTML = `<span style = "color : red;">Password cannot be empty!</span>`;
-  else {
-    if(user.value === config.adminusername && password.value === config.adminpassword) {
-      result.innerHTML = `<span style = "color : green;">Login succefully</span>`;
-      await sleep(1000);
-      window.location.href = '/';
-    } else {
-      result.innerHTML = `<span style = "color : red;">Password or Username is WRONG!</span>`;
-    }
+  const back = await res.json();
+  if(back.success) {
+    result.innerHTML = `<span style = "color : green;">Login Successfully!</span>`;
+    await sleep(2000);
+    window.location.href = '/';
+  } else {
+    result.innerHTML = `<span style = "color : red;">Login Failed!</span>`;
   }
-})
+});
 
 regist.addEventListener('click', () => {
-  result.innerHTML = `<cpan style = "color : red;">WIP</span>`;
+  result.innerHTML = `<span style = "color : red;">WIP</span>`;
 })
