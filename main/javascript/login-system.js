@@ -5,6 +5,11 @@ const password = document.getElementById('password');
 const login = document.getElementById('login');
 const regist = document.getElementById('regist');
 const result = document.getElementById('result');
+const exit = document.getElementById('exit');
+
+exit.addEventListener('click', () => {
+  window.location.href = '/';
+})
 
 login.addEventListener('click', async () => {
   const res = await fetch('/login', {

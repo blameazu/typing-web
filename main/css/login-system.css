@@ -6,6 +6,19 @@ body {
   text-align: center ;
   color: white;
 }
+
+#exit {
+  position: absolute;
+  top: 2px;
+  right: 0; 
+  width: 187px;
+  height: 40px;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  box-sizing: border-box;
+}
+
 .input-section {
   width: 100%;
   margin-bottom: 10px;
