@@ -7,12 +7,19 @@ const story = document.getElementById('story');
 const input = document.getElementById('input');
 const result = document.getElementById('result');
 const time = document.getElementById('time');
+const best = document.getElementById('best');
 
 var goal = "not started...";
 var begintime = null;
 var started = false;
 var timer = null;
 var nowtime = null;
+
+var besttime = Infinity;
+
+function min(a, b) {
+  return parseInt(a) < parseInt(b) ? a : b;
+}
 
 async function randomstory() {
   try {
@@ -62,6 +69,8 @@ input.addEventListener('input', async () => {
       clearInterval(timer);
       time.innerText = '';
       result.innerText = `Finished in ${nowtime} seconds!`;
+      besttime = await min(besttime, nowtime);
+      best.innerText = `Best : ${besttime}`;
       await sleep(3000);
       await update();
   } else {
