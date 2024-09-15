@@ -12,26 +12,33 @@ exit.addEventListener('click', () => {
 })
 
 login.addEventListener('click', async () => {
-  const res = await fetch('/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      username: user.value,
-      password: password.value,
-    }),
-  });
-
-  const back = await res.json();
-  if(back.success) {
-    result.innerHTML = `<span style = "color : green;">Login Successfully!</span>`;
-    localStorage.setItem('username', user.value);
-    await sleep(2000);
-    window.location.href = '/';
+  if(user.value === "") {
+    result.innerHTML = `<span style = "color : red;">Username cannot be empty!</span>`;
+  } else if(password.value === "") {
+    result.innerHTML = `<span style = "color : red;">Password cannot be empty!</span>`;
   } else {
-    result.innerHTML = `<span style = "color : red;">Login Failed!</span>`;
+    const res = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: user.value,
+        password: password.value,
+      }),
+    });
+  
+    const back = await res.json();
+    if(back.success) {
+      result.innerHTML = `<span style = "color : green;">Login Successfully!</span>`;
+      localStorage.setItem('username', user.value);
+      await sleep(2000);
+      window.location.href = '/';
+    } else {
+      result.innerHTML = `<span style = "color : red;">Login Failed!</span>`;
+    }
   }
+  
 });
 
 regist.addEventListener('click', async () => {
