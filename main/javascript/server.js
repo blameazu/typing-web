@@ -41,6 +41,23 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.post('/regist', (req, res) => {
+  const {username, password} = req.body;
+
+  const qry = 'SELECT * FROM users WHERE username = ?';
+  con.query(qry, [username], (err, re) => {
+    if(err) throw err;
+    if(re.length > 0) res.json({ success: false});
+    else {
+      const qry2 = 'INSERT INTO users (username, password) VALUES (?, ?)';
+      con.query(qry2, [username, password], (err, re) => {
+        if(err) throw err;
+        res.json({ success: true});
+      });
+    }
+  });
+});
+
 app.get('/random-text', (req, res) => {
   con.query("SELECT content FROM texts ORDER BY RAND() LIMIT 1", function(err, result) {
     if (err) throw err;

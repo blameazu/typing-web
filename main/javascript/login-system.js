@@ -33,6 +33,19 @@ login.addEventListener('click', async () => {
   }
 });
 
-regist.addEventListener('click', () => {
-  result.innerHTML = `<span style = "color : red;">WIP</span>`;
+regist.addEventListener('click', async () => {
+  const res = await fetch('/regist', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      username: user.value,
+      password: password.value,
+    }),
+  });
+
+  const re = await res.json();
+  if(re.success) result.innerHTML = `<span style = "color : green;">Create a new account successfully!</span>`;
+  else result.innerHTML = `<span style = "color:red;">The username was used!</span>`;
 })
