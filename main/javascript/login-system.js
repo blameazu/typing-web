@@ -26,6 +26,7 @@ login.addEventListener('click', async () => {
   const back = await res.json();
   if(back.success) {
     result.innerHTML = `<span style = "color : green;">Login Successfully!</span>`;
+    localStorage.setItem('username', user.value);
     await sleep(2000);
     window.location.href = '/';
   } else {

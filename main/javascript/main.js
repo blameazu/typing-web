@@ -85,3 +85,26 @@ const login = document.getElementById('login');
 login.addEventListener('click', () => {
   window.location.href = 'login.html';
 })
+
+
+// user system
+
+const username = localStorage.getItem('username');
+const signout = document.getElementById('signout');
+
+const user = document.getElementById('user');
+
+if(!username) {
+  user.style.display = 'none';
+  signout.style.display = 'none';
+} else {
+  user.innerText = `${username}`;
+  login.style.display = 'none';
+}
+
+signout.addEventListener('click', () => {
+  localStorage.removeItem('username');
+
+  window.location.href = '/';
+})
+
