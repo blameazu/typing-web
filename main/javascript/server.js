@@ -5,7 +5,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
 
-app.use(express.static(path.join(__dirname, '..'))); 
+app.use(express.static(path.join(__dirname, '..', '..'))); 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +23,7 @@ con.connect(function(err) {
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'html', 'main.html'));
+  res.sendFile(path.join(__dirname, '..', '..', 'index.html'));
 });
 
 app.get('/login.html', (req, res) => {
