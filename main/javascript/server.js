@@ -1,16 +1,11 @@
 require('dotenv').config();
 var express = require('express');
-var mysql = require('mysql');
+var { Pool } = require('pg');
 var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
 
-app.use(express.static(path.join(__dirname, '..', '..'))); 
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-var con = mysql.createConnection({
+var pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   user: process.env.DB_USER,
@@ -18,10 +13,10 @@ var con = mysql.createConnection({
   database: process.env.DB_DATABASE
 });
 
-con.connect(function(err) {
-  if (err) throw err;
-  console.log('Connected to MySQL!');
-});
+app.use(express.static(path.join(__dirname, '..', '..'))); 
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'index.html'));
@@ -31,39 +26,44 @@ app.get('/login.html', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'html', 'login.html'));
 });
 
-app.post('/login', (req, res) => {
-  const {username, password} = req.body;
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
 
-  const query = 'SELECT * FROM users WHERE username = ? AND password = ?';
-  con.query(query, [username, password], (err, result) => {
-    if(err) throw err;
-    if(result.length > 0) res.json({ success: true });
+  try {
+    const result = await pool.query('SELECT * FROM users WHERE username = $1 AND password = $2', [username, password]);
+    if (result.rows.length > 0) res.json({ success: true });
     else res.json({ success: false });
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
 });
 
-app.post('/regist', (req, res) => {
-  const {username, password} = req.body;
+app.post('/regist', async (req, res) => {
+  const { username, password } = req.body;
 
-  const qry = 'SELECT * FROM users WHERE username = ?';
-  con.query(qry, [username], (err, re) => {
-    if(err) throw err;
-    if(re.length > 0) res.json({ success: false});
-    else {
-      const qry2 = 'INSERT INTO users (username, password) VALUES (?, ?)';
-      con.query(qry2, [username, password], (err, re) => {
-        if(err) throw err;
-        res.json({ success: true});
-      });
+  try {
+    const checkUser = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+    if (checkUser.rows.length > 0) {
+      res.json({ success: false });
+    } else {
+      await pool.query('INSERT INTO users (username, password) VALUES ($1, $2)', [username, password]);
+      res.json({ success: true });
     }
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
 });
 
-app.get('/random-text', (req, res) => {
-  con.query("SELECT content FROM texts ORDER BY RAND() LIMIT 1", function(err, result) {
-    if (err) throw err;
-    res.json({ text: result[0].content });
-  });
+app.get('/random-text', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT content FROM texts ORDER BY RANDOM() LIMIT 1');
+    res.json({ text: result.rows[0].content });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false });
+  }
 });
 
 app.listen(process.env.PORT, () => {

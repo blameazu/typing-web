@@ -1,17 +1,18 @@
 {
   "name": "typing-web",
   "version": "1.0.0",
-  "description": "A typing web application.",
+  "description": "A web application for typing race.",
   "main": "main/javascript/server.js",
   "scripts": {
-    "start": "node main/javascript/server.js",
-    "build": "echo 'No build script defined'"
+    "start": "node main/javascript/server.js"
   },
   "dependencies": {
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mysql": "^2.18.1",
-    "dotenv": "^10.0.0"
+    "pg": "^8.8.0"
   },
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
 }
