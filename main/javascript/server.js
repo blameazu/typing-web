@@ -1,6 +1,6 @@
+require('dotenv').config();
 var express = require('express');
 var mysql = require('mysql');
-var config = require('../json/config.json'); // here need to be modified to your config.json file path
 var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
@@ -11,10 +11,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var con = mysql.createConnection({
-  host: config.host,
-  user: config.user,
-  password: config.password,
-  database: config.database
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
 });
 
 con.connect(function(err) {
@@ -65,6 +65,6 @@ app.get('/random-text', (req, res) => {
   });
 });
 
-app.listen(config.port, () => {
-  console.log(`Server running at http://localhost:${config.port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running at http://localhost:${process.env.PORT}`);
 });

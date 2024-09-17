@@ -1,17 +1,17 @@
 {
-    "name": "typing-web",
-    "version": "1.0.0",
-    "description": "A typing web application.",
-    "main": "main/javascript/server.js",
-    "scripts": {
-      "start": "node main/javascript/server.js",
-      "build": "echo 'No build script defined'"
-    },
-    "dependencies": {
-      "express": "^4.18.2",
-      "mysql": "^2.18.1"
-    },
-    "author": "",
-    "license": "ISC"
+  "name": "typing-web",
+  "version": "1.0.0",
+  "description": "A typing web application.",
+  "main": "main/javascript/server.js",
+  "scripts": {
+    "start": "node main/javascript/server.js",
+    "build": "echo 'No build script defined'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "dotenv": "^10.0.0"
+  },
+  "author": "",
+  "license": "ISC"
 }
-  
