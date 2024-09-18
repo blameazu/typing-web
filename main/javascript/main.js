@@ -89,22 +89,32 @@ login.addEventListener('click', () => {
 
 // user system
 
-const username = localStorage.getItem('username');
+const res = await fetch('/get-info', {
+  method: 'POST',
+  headers: {
+      'Content-Type': 'application/json'
+  }
+});
+
+const data = await res.json();
+const user = document.getElementById('user');
 const signout = document.getElementById('signout');
 
-const user = document.getElementById('user');
-
-if(!username) {
+if(data.success) {
+  user.innerText = `${data.username}`;
+  login.style.display = 'none';
+} else {
   user.style.display = 'none';
   signout.style.display = 'none';
-} else {
-  user.innerText = `${username}`;
-  login.style.display = 'none';
 }
 
-signout.addEventListener('click', () => {
-  localStorage.removeItem('username');
-
+signout.addEventListener('click', async () => {
+  await fetch('/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
   window.location.href = '/';
 })
 
