@@ -5,7 +5,6 @@ import { sleep } from './function.js';
 
 const story = document.getElementById('story');
 const input = document.getElementById('input');
-const result = document.getElementById('result');
 const time = document.getElementById('time');
 const best = document.getElementById('best');
 
@@ -34,14 +33,13 @@ async function randomstory() {
 
 async function update() {
   try {
-    input.value = "";
-    result.innerText = "";
-    time.innerText = "Time: 0.00 seconds";
     started = false;
     begintime = null;
-    if(timer) clearInterval(timer);
+    if(timer) await clearInterval(timer);
     goal = await randomstory();
+    input.value = "";
     story.innerText = goal;
+    time.innerText = "Time: 0.00 seconds";
   } catch (error) {
     console.error(`[Error] Failed to update`)
   }
@@ -66,13 +64,11 @@ input.addEventListener('input', async () => {
   story.innerHTML = colorchg(goal, input.value);
 
   if (input.value === goal) {
-      clearInterval(timer);
-      time.innerText = '';
-      result.innerText = `Finished in ${nowtime} seconds!`;
+      await clearInterval(timer);
       besttime = await min(besttime, nowtime);
       best.innerText = `Best : ${besttime}`;
-      await sleep(3000);
       await update();
+      await sleep(2000);
   } else {
       result.innerText = '';
   }
